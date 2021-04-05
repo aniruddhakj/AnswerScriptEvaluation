@@ -9,7 +9,7 @@ client = vision_v1.ImageAnnotatorClient()
 # get path of image
 # hardcoded -> images/sample.img
 
-FILE_PATH = "images/test.jpeg"
+FILE_PATH = "images/test1.jpeg"
 
 
 with io.open(FILE_PATH, 'rb') as image_file:

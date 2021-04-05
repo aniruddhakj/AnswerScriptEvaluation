@@ -48,24 +48,24 @@ def wordimportance(modelAnswer):
     tfScore.update((x, y/int(totalWordCount)) for x, y in tfScore.items())
     idfScore.update((x, log(int(totalSentencesCount)/y)) for x, y in idfScore.items())
     tF_idF = {key: tfScore[key] * idfScore.get(key, 0) for key in tfScore.keys()}
-    return(get_top_n(tF_idF, 5))
+    return(get_top_n(tF_idF, 7))
 
 #test for a given question passed
-keywords = list(wordimportance(QuestionMatch("What is a Router?")).keys())
+keywords = list(wordimportance(QuestionMatch("What are the different Layers of TCP/IP Model?")).keys())
 print(keywords)
 
 presence = [0,0,0,0,0] #same size as keyword
 
 
 #ans0 Router is a device responsible for routing and forwarding data between source and destination over the computer network. -> 1.0 [same answer]
-#ans1 -> Router is a device that allows the user to connect to a computer network . It has two key functions :- forwarding and routing -> 0.8788311303339725
+#ans1 -> Router is a device that allows the user to connect to a computer network . It has two key functions namely, forwarding and routing -> 0.8788311303339725
 #ans2 -> A Router is a device that allows users to connect to the internet. It is also used to make a wifi network. -> 0.540156296874736
 #ans3 -> Router is a device that is used to create networks and is responsible for packet forwarding and routing. -> 1.0
 #ans4 -> A Router is used for creating a wifi network that allows us to connect to internet -> 0.38047605496992754
 # hardcoded answer for now
 # student_ans = "A Router is a device that allows users to connect to the internet. It is also used to make a wifi network. "
 
-student_ans = " A Router is used for creating a wifi network that allows us to connect to internet"
+student_ans = "A network is a group of devices connected to each other through a physical medium "
 
 i = 0
 j = 0
@@ -82,7 +82,7 @@ s_weight = 0
 
 
 # strength vec  word to vec
-strength = [1.0, 0.21278195, 0.075474784, 0.1709376, 0.32348904]
+strength = [0.045215975, 0.13770995, 0.2002548, 0.13610095, 0.41461614]
 
 sum = 0
 i = 0

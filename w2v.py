@@ -8,8 +8,10 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 # getting tokens
-keywords = ['router', 'device', 'responsible', 'routing', 'forwarding']
-# keywords = ['set', 'device', 'connected', 'physical', 'medium', 'network']
+# keywords = ['router', 'device', 'responsible', 'routing', 'forwarding']
+# keywords = ['set', 'device', 'connected', 'physical', 'medium']
+
+keywords = ['application', 'layer', 'transport', 'network', 'internet', 'data', 'link']
 
 article_text = ""
 
@@ -23,6 +25,16 @@ for keyword in keywords:
 
     for p in paragraphs:
         article_text += p.text
+
+
+scrapped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/TCP/IP')
+article = scrapped_data .read()
+
+parsed_article = bs.BeautifulSoup(article,'lxml')
+
+paragraphs = parsed_article.find_all('p')
+for p in paragraphs:
+    article_text += p.text
 
 
 ### preprocessing data for text data
@@ -50,14 +62,14 @@ print("-----------------------------------\n")
 # v1 = word2vec.wv['artificial']
 
 
-print(word2vec.wv.most_similar('router'))
+print(word2vec.wv.most_similar( 'model'))
 
-strength = [0,0,0,0,0]
+strength = [0,0,0,0,0,0,0]
 i = 0
 
 for keyword in keywords:
-    print(keyword + "->" + str(word2vec.wv.similarity(keyword,"router")))
-    strength[i] = abs(word2vec.wv.similarity(keyword,"router"))
+    print(keyword + "->" + str(word2vec.wv.similarity(keyword,'model')))
+    strength[i] = abs(word2vec.wv.similarity(keyword,'model'))
     i+=1
 
 print(strength)
