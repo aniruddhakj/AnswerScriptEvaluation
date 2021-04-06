@@ -53,7 +53,7 @@ for i in range(len(all_words)):
 
 
 
-word2vec = Word2Vec(all_words, min_count=1, vector_size = 30)
+word2vec = Word2Vec(all_words, min_count=1, vector_size = 30,)
 vocabulary = word2vec.wv.key_to_index
 print(vocabulary.keys())
 print("-----------------------------------\n")
