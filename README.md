@@ -1,6 +1,31 @@
 # AnswerScriptEvaluation
+
 A repo containing code for an automated answer script evaluator
 
-For linux/mac
+### setting up dev environment
 
-```source VisionAPI/bin/activate```
+- clone the repo
+
+```bash
+git clone https://github.com/nitishvelu/AnswerScriptEvaluation
+```
+
+- install streamlit
+
+```bash
+pip3 install streamlit
+```
+
+- install google-cloud-vision library
+
+```bash
+pip3 install google-cloud-vision
+```
+
+- run main program
+
+```bash
+streamlit run main.py
+```
+
+[streamlit API reference](https://docs.streamlit.io/en/stable/)
