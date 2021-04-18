@@ -16,6 +16,12 @@ git clone https://github.com/nitishvelu/AnswerScriptEvaluation
 pip3 install streamlit
 ```
 
+- install google-cloud-vision library
+
+```bash
+pip3 install google-cloud-vision
+```
+
 - run main program
 
 ```bash
