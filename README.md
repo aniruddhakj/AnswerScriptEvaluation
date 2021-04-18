@@ -21,3 +21,5 @@ pip3 install streamlit
 ```bash
 streamlit run main.py
 ```
+
+[streamlit API reference](https://docs.streamlit.io/en/stable/)
