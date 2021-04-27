@@ -13,74 +13,77 @@ nltk.download('stopwords')
 
 keywords = ['application', 'layer', 'transport', 'network', 'internet', 'data', 'link']
 
-article_text = ""
+def computeStrength(keywords):
+    
+    article_text = ""
 
-for keyword in keywords:
-    scrapped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/' + keyword)
+    for keyword in keywords:
+        scrapped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/' + keyword)
+        article = scrapped_data .read()
+
+        parsed_article = bs.BeautifulSoup(article,'lxml')
+
+        paragraphs = parsed_article.find_all('p')
+
+        for p in paragraphs:
+            article_text += p.text
+
+
+    scrapped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/TCP/IP')
     article = scrapped_data .read()
 
     parsed_article = bs.BeautifulSoup(article,'lxml')
 
     paragraphs = parsed_article.find_all('p')
-
     for p in paragraphs:
         article_text += p.text
 
 
-scrapped_data = urllib.request.urlopen('https://en.wikipedia.org/wiki/TCP/IP')
-article = scrapped_data .read()
+    ### preprocessing data for text data
+    processed_article = article_text.lower()
+    processed_article = re.sub('[^a-zA-Z]', ' ', processed_article )
+    processed_article = re.sub(r'\s+', ' ', processed_article)
 
-parsed_article = bs.BeautifulSoup(article,'lxml')
+    # Preparing the dataset
+    all_sentences = nltk.sent_tokenize(processed_article)
 
-paragraphs = parsed_article.find_all('p')
-for p in paragraphs:
-    article_text += p.text
+    all_words = [nltk.word_tokenize(sent) for sent in all_sentences]
 
-
-### preprocessing data for text data
-processed_article = article_text.lower()
-processed_article = re.sub('[^a-zA-Z]', ' ', processed_article )
-processed_article = re.sub(r'\s+', ' ', processed_article)
-
-# Preparing the dataset
-all_sentences = nltk.sent_tokenize(processed_article)
-
-all_words = [nltk.word_tokenize(sent) for sent in all_sentences]
-
-from nltk.corpus import stopwords
-for i in range(len(all_words)):
-    all_words[i] = [w for w in all_words[i] if w not in stopwords.words('english')]
+    from nltk.corpus import stopwords
+    for i in range(len(all_words)):
+        all_words[i] = [w for w in all_words[i] if w not in stopwords.words('english')]
 
 
 
-word2vec = Word2Vec(all_words, min_count=1, vector_size = 30,)
-vocabulary = word2vec.wv.key_to_index
-print(vocabulary.keys())
-print("-----------------------------------\n")
+    word2vec = Word2Vec(all_words, min_count=1, vector_size = 30,)
+    vocabulary = word2vec.wv.key_to_index
+    #print(vocabulary.keys())
+    print("-----------------------------------\n")
 
-### testing
-# v1 = word2vec.wv['artificial']
-
-
-print(word2vec.wv.most_similar( 'model'))
-
-strength = [0,0,0,0,0,0,0]
-i = 0
-
-for keyword in keywords:
-    print(keyword + "->" + str(word2vec.wv.similarity(keyword,'model')))
-    strength[i] = abs(word2vec.wv.similarity(keyword,'model'))
-    i+=1
-
-print(strength)
+    ### testing
+    # v1 = word2vec.wv['artificial']
 
 
+    print(word2vec.wv.most_similar( 'model'))
 
-# print('Router ->' + str(word2vec.wv.similarity("router","router")))
-# print('device ->' + str(word2vec.wv.similarity("device","router")))
-# print('responsible ->' + str(word2vec.wv.similarity("responsible", "router")))
-# print('routing ->' + str(word2vec.wv.similarity("routing", "router")))
-# print('forwarding ->' + str(word2vec.wv.similarity("forwarding", "router")))
+    strength = [0]*len(keywords)
+    i = 0
+
+    for keyword in keywords:
+        print(keyword + "->" + str(word2vec.wv.similarity(keyword,'model')))
+        strength[i] = abs(word2vec.wv.similarity(keyword,'model'))
+        i+=1
+
+    print(strength)
+    return strength
 
 
-# word2vec.wv.doesnt_match(["america","europe","floor"])
+
+    # print('Router ->' + str(word2vec.wv.similarity("router","router")))
+    # print('device ->' + str(word2vec.wv.similarity("device","router")))
+    # print('responsible ->' + str(word2vec.wv.similarity("responsible", "router")))
+    # print('routing ->' + str(word2vec.wv.similarity("routing", "router")))
+    # print('forwarding ->' + str(word2vec.wv.similarity("forwarding", "router")))
+
+
+    # word2vec.wv.doesnt_match(["america","europe","floor"])

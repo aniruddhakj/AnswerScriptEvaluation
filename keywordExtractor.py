@@ -4,6 +4,7 @@ from operator import itemgetter
 from math import log
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
+from w2v import computeStrength
 
 def QuestionMatch(examQuestion):
     '''Returns the model answer from the question bank'''
@@ -52,10 +53,13 @@ def wordimportance(modelAnswer):
 
 def processAns(student_ans):
     #test for a given question passed
-    keywords = list(wordimportance(QuestionMatch("What are the different Layers of TCP/IP Model?")).keys())
+    student_ans = student_ans.lower()
+    keywords = list(wordimportance(QuestionMatch("What is a Router?")).keys())
+    for i in range(0,len(keywords)):
+        keywords[i] = keywords[i].lower()
     print(keywords)
-
-    presence = [0,0,0,0,0] #same size as keyword
+    presence = [0]*len(keywords)
+#Application Layer, Transport Layer, Network or Internet Layer, Data Link Layer and Physical Layer.
 
 
     #ans0 Router is a device responsible for routing and forwarding data between source and destination over the computer network. -> 1.0 [same answer]
@@ -76,12 +80,14 @@ def processAns(student_ans):
 
 
     p_weight = j/i
+    print("p weight is " ,p_weight)
 
     s_weight = 0
-
+    #find strength vector
+    strength = computeStrength(keywords)
 
     # strength vec  word to vec
-    strength = [0.045215975, 0.13770995, 0.2002548, 0.13610095, 0.41461614]
+    #strength = [0.045215975, 0.13770995, 0.2002548, 0.13610095, 0.41461614]
 
     sum = 0
     i = 0
@@ -93,6 +99,8 @@ def processAns(student_ans):
 
     s_weight /= sum
 
+    print("strength weight = ",s_weight)
+
     p_fac = 0.5
     s_fac = 0.5
 
@@ -102,8 +110,7 @@ def processAns(student_ans):
 
     print(contextScore)
 
-#processAns("A network is a group of devices connected to each other through a physical medium ")
-
+#processAns("Router is a device responsible for routing and forwarding data between source and destination over the computer network.")
 
 
 
