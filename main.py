@@ -8,6 +8,7 @@ from keywordExtractor import processAns
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'token.json'
 
+
 client = vision_v1.ImageAnnotatorClient()
 
 
@@ -17,7 +18,9 @@ def save_uploaded_file(uploadedfile):
      f.write(uploadedfile.getbuffer())
   return st.success("Selected image {}".format(uploadedfile.name))
 
+
 st.title("Student Answer Evaluator")
+
 st.sidebar.write("# Menu")
 img_file = st.sidebar.file_uploader(label='', type=['png', 'jpg'],help="upload image to be evaluated")
 if img_file:
@@ -39,3 +42,5 @@ if img_file:
     #exec(open("keywordExtractor.py").read())
 else:
     st.header('Select An Image') 
+
+
