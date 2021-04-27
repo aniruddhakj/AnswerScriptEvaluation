@@ -6,7 +6,7 @@ from google.cloud import vision_v1
 from google.cloud.vision_v1 import types
 from keywordExtractor import processAns
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'ferrous-pact-309206-db4cd544f0f2.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'token.json'
 
 client = vision_v1.ImageAnnotatorClient()
 
