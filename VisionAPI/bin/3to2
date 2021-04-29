@@ -1,0 +1,6 @@
+#!/Users/indujav/Desktop/code/AnswerScriptEvaluation/VisionAPI/bin/python3
+import sys
+
+from lib3to2.main import main
+
+sys.exit(main("lib3to2.fixes"))

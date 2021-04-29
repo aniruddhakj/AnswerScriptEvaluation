@@ -49,12 +49,13 @@ def wordimportance(modelAnswer):
     tfScore.update((x, y/int(totalWordCount)) for x, y in tfScore.items())
     idfScore.update((x, log(int(totalSentencesCount)/y)) for x, y in idfScore.items())
     tF_idF = {key: tfScore[key] * idfScore.get(key, 0) for key in tfScore.keys()}
-    return(get_top_n(tF_idF, 7))
+    return(get_top_n(tF_idF, 5))
 
-def processAns(student_ans):
+def processAns(question,student_ans,qwords):
     #test for a given question passed
     student_ans = student_ans.lower()
-    keywords = list(wordimportance(QuestionMatch("What is a Router?")).keys())
+
+    keywords = list(wordimportance(QuestionMatch(question)).keys())
     for i in range(0,len(keywords)):
         keywords[i] = keywords[i].lower()
     print(keywords)
@@ -84,7 +85,7 @@ def processAns(student_ans):
 
     s_weight = 0
     #find strength vector
-    strength = computeStrength(keywords)
+    strength = computeStrength(keywords,qwords)
 
     # strength vec  word to vec
     #strength = [0.045215975, 0.13770995, 0.2002548, 0.13610095, 0.41461614]
@@ -110,7 +111,22 @@ def processAns(student_ans):
 
     print(contextScore)
 
-#processAns("Router is a device responsible for routing and forwarding data between source and destination over the computer network.")
+#working questions
+
+#processAns("What is a Router?","Router is a device that allows the user to connect to a computer network . It has two key functions namely, forwarding and routing","router")
+
+#processAns("What do you mean by Network?","Set of devices connected to each other over the physical medium is known as a computer network. For example the Internet.","network")
+
+#processAns("What is the OSI model?","OSI model stands for Open System Interconnection. It’s a reference model which describes that how different applications will communicate to each other over the computer network.","osi")
+
+# issues
+
+#processAns("What are the different Layers of TCP/IP Model?"," Application Layer, Transport Layer, Network or Internet Layer, Data Link Layer and Physical Layer.","tcp")
+# layer, comes as the keyword instead of layer this was an issue with many q's 
+
+#processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
+
+
 
 
 

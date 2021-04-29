@@ -14,12 +14,15 @@ client = vision_v1.ImageAnnotatorClient()
 
 #saving selected image in the program directory for google API processing
 def save_uploaded_file(uploadedfile):
-  with open(os.path.join("./",uploadedfile.name),"wb") as f:
+  with open(os.path.join("./images/",uploadedfile.name),"wb") as f:
      f.write(uploadedfile.getbuffer())
   return st.success("Selected image {}".format(uploadedfile.name))
 
 
 st.title("Student Answer Evaluator")
+
+# option = st.selectbox('Select a Question to add',('What is a Router?', 'What is an Encoder?'))
+# st.write('Added Questions: -', option)
 
 st.sidebar.write("# Menu")
 img_file = st.sidebar.file_uploader(label='', type=['png', 'jpg'],help="upload image to be evaluated")
@@ -29,7 +32,7 @@ if img_file:
     st.image(img)
     st.write(img_file.name)
     save_uploaded_file(img_file)
-    FILE_PATH=img_file.name   
+    FILE_PATH="images/" + img_file.name   
     with io.open(FILE_PATH, 'rb') as image_file:
         content = image_file.read()
  
@@ -38,7 +41,8 @@ if img_file:
 
     docText = response.full_text_annotation.text
     st.write(docText)
-    processAns(docText)
+    #processAns(docText)
+    print("image uploaded")
     #exec(open("keywordExtractor.py").read())
 else:
     st.header('Select An Image') 
