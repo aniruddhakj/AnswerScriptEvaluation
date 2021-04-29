@@ -46,18 +46,18 @@ for i in range(len(all_words)):
 
 
 
-# print(len(all_words))
+print(len(all_words))
 
 
 
 
 
 
-word2vec = Word2Vec(all_words, min_count=3, vector_size = 700, sg = 1 , epochs = 100)
+word2vec = Word2Vec(all_words, min_count=1, vector_size = 700 , epochs = 100)
 vocabulary = word2vec.wv.key_to_index
 print(len(vocabulary.keys()))
 
-word2vec.save('models_sg.kv')
+word2vec.save('models_large.kv')
  
     
 # #     print(b)

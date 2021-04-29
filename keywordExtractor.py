@@ -119,12 +119,13 @@ def processAns(question,student_ans,qwords):
 
 #processAns("What is the OSI model?","OSI model stands for Open System Interconnection. It’s a reference model which describes that how different applications will communicate to each other over the computer network.","osi")
 
+#processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
+
 # issues
 
 #processAns("What are the different Layers of TCP/IP Model?"," Application Layer, Transport Layer, Network or Internet Layer, Data Link Layer and Physical Layer.","tcp")
 # layer, comes as the keyword instead of layer this was an issue with many q's 
 
-#processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
 
 
 
