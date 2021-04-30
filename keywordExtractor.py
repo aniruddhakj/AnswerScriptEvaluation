@@ -4,7 +4,11 @@ from operator import itemgetter
 from math import log
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
-from w2v import computeStrength
+from w2v import computeStrength 
+import gensim.downloader as api
+from nltk.corpus import stopwords
+from grammar import checkGrammar
+
 
 def QuestionMatch(examQuestion):
     '''Returns the model answer from the question bank'''
@@ -51,14 +55,47 @@ def wordimportance(modelAnswer):
     tF_idF = {key: tfScore[key] * idfScore.get(key, 0) for key in tfScore.keys()}
     return(get_top_n(tF_idF, 5))
 
+def checkRelavancy(student_ans,keywords):
+    score = 0
+    t = 0
+    word_vectors = api.load("word2vec-google-news-300") 
+    l = student_ans.split(" ")
+    for word in l:
+        if((word in word_vectors.key_to_index) and (word not in stopwords.words('english'))):
+            data = word_vectors.most_similar(positive=[word])
+            for tup in data:
+                if (tup[0].lower() in keywords):
+                    t += 1
+                    score += tup[1]
+    score /= t
+    return score
+
+
 def processAns(question,student_ans,qwords):
     #test for a given question passed
-    student_ans = student_ans.lower()
+    res = checkGrammar(student_ans)
+    errors = len(res[1])
+    if (errors < 2 ):
+        penalty = 0
+    elif (errors < 5 ):
+        penalty = 0.25
+    elif (errors < 8):
+        penalty = 0.5
+    elif (errors < 10):
+        penalty = 0.75
+    else:
+        penalty = 1
+
+    g_fac = 0.5
+
+    student_ans = res[0].lower()
 
     keywords = list(wordimportance(QuestionMatch(question)).keys())
     for i in range(0,len(keywords)):
         keywords[i] = keywords[i].lower()
     print(keywords)
+    relevancy_score = checkRelavancy(student_ans,keywords)
+
     presence = [0]*len(keywords)
 #Application Layer, Transport Layer, Network or Internet Layer, Data Link Layer and Physical Layer.
 
@@ -107,8 +144,13 @@ def processAns(question,student_ans,qwords):
 
     contextScore = p_fac*p_weight + s_fac*s_weight
 
-    print("---------------------------------")
+    contextScore -= contextScore*penalty*g_fac
 
+    if (contextScore < 0.5):
+        relavancy_score = checkRelavancy(student_ans,keywords)
+        if (relavancy_score > 0.5):
+            contextScore = (contextScore + relavancy_score) / 2
+    print("---------------------------------")
     print(contextScore)
 
 #working questions
@@ -119,7 +161,7 @@ def processAns(question,student_ans,qwords):
 
 #processAns("What is the OSI model?","OSI model stands for Open System Interconnection. It’s a reference model which describes that how different applications will communicate to each other over the computer network.","osi")
 
-#processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
+processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
 
 # issues
 
@@ -128,7 +170,7 @@ def processAns(question,student_ans,qwords):
 
 
 
-
+#print(checkRelavancy("router is a device used to connect to the internet",['router','device','network']))
 
 
 
