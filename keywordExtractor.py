@@ -71,7 +71,7 @@ def checkRelavancy(student_ans,keywords):
     return score
 
 
-def processAns(question,student_ans,qwords):
+def processAns(question,student_ans,qwords,keywords,g_fac,s_fac):
     #test for a given question passed
     res = checkGrammar(student_ans)
     errors = len(res[1])
@@ -86,7 +86,6 @@ def processAns(question,student_ans,qwords):
     else:
         penalty = 1
 
-    g_fac = 0.5
 
     student_ans = res[0].lower()
 
@@ -139,8 +138,7 @@ def processAns(question,student_ans,qwords):
 
     print("strength weight = ",s_weight)
 
-    p_fac = 0.5
-    s_fac = 0.5
+    p_fac = 1 - s_fac 
 
     contextScore = p_fac*p_weight + s_fac*s_weight
 
@@ -161,7 +159,7 @@ def processAns(question,student_ans,qwords):
 
 #processAns("What is the OSI model?","OSI model stands for Open System Interconnection. It’s a reference model which describes that how different applications will communicate to each other over the computer network.","osi")
 
-processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
+#processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
 
 # issues
 
