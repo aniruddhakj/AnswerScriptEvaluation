@@ -70,3 +70,10 @@ print(len(text.split(' ')))
 # # # word2vec.wv.most_similar (positive=w1)
 
 # # print(word2vec.wv.most_similar( 'host'))
+
+
+
+
+
+
+
