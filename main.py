@@ -31,7 +31,7 @@ def modifyKeywords(keywords,model_answer):
             
 
 def getData():
-    option = st.selectbox('',('Select a Question','What is a Router?', 'What do you mean by Network?','What is the OSI model?'))
+    option = st.selectbox('',('Select a Question','What is a Router?', 'What do you mean by Network?','What is the OSI model?',"What are the different Layers of TCP/IP Model?","What is the work of a Proxy server?","What is a decoder?","What is the full form of IDEA?"))
     if (not (option == 'Select a Question')):
         new_list = []
         model_answer = QuestionMatch(option)
@@ -82,6 +82,10 @@ def getData():
             g_fac /= 100
             s_fac /= 100
             score = processAns(option,docText,keywords,g_fac,s_fac)
+            if (score < 0):
+                score = 0
+
+
             st.write("Student score ->",score)            
         else:
             st.subheader("Upload Student Answer") 
