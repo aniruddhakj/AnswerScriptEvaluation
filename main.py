@@ -31,7 +31,7 @@ def modifyKeywords(keywords,model_answer):
             
 
 def getData():
-    option = st.selectbox('',('Select a Question','What is a Router?', 'What do you mean by Network?','What is the OSI model?',"What are the different Layers of TCP/IP Model?","What is the work of a Proxy server?","What is a decoder?","What is the full form of IDEA?"))
+    option = st.selectbox('',('Select a Question','What is a Router?', 'What do you mean by Network?','What is the OSI model?',"What are the different Layers of TCP/IP Model?","What is the work of a Proxy server?","What is a decoder?","What is POP3?"))
     if (not (option == 'Select a Question')):
         new_list = []
         model_answer = QuestionMatch(option)
