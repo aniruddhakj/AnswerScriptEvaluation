@@ -64,11 +64,11 @@ def computeStrength(keywords,qwords):
     model = KeyedVectors.load('models.kv')
     large_model = Word2Vec.load('models_large.kv')
 
-    for keyword in keywords:
-        if keyword in model.wv.key_to_index:
-            print(keyword," present in model")
-        else:
-            print(keyword," not present")
+    # for keyword in keywords:
+    #     if keyword in model.wv.key_to_index:
+    #         print(keyword," present in model")
+    #     else:
+    #         print(keyword," not present")
     #building wiki model
     # article_text = ""
 

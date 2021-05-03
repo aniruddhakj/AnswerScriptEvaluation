@@ -21,6 +21,17 @@ def QuestionMatch(examQuestion):
     jsonFile.close()
     return modelAnswer
 
+def getQword(question):
+    with open ("QandAConverted.json") as jsonFile:
+        filedata = json.load(jsonFile)
+
+    for ele in filedata['data']:
+        if ele['Question'] == question:
+            qword = ele['qword']
+    jsonFile.close()
+    return qword
+
+
 def get_top_n(dict_elem, n):
     '''gets the top n keywords from a dictionary element'''
     result = dict(sorted(dict_elem.items(), key = itemgetter(1), reverse = True)[:n]) 
@@ -67,12 +78,14 @@ def checkRelavancy(student_ans,keywords):
                 if (tup[0].lower() in keywords):
                     t += 1
                     score += tup[1]
-    score /= t
+    if(t != 0):
+        score /= t
     return score
 
 
-def processAns(question,student_ans,qwords,keywords,g_fac,s_fac):
+def processAns(question,student_ans,keywords,g_fac,s_fac):
     #test for a given question passed
+    qwords = getQword(question)
     res = checkGrammar(student_ans)
     errors = len(res[1])
     if (errors < 2 ):
@@ -89,11 +102,9 @@ def processAns(question,student_ans,qwords,keywords,g_fac,s_fac):
 
     student_ans = res[0].lower()
 
-    keywords = list(wordimportance(QuestionMatch(question)).keys())
     for i in range(0,len(keywords)):
         keywords[i] = keywords[i].lower()
     print(keywords)
-    relevancy_score = checkRelavancy(student_ans,keywords)
 
     presence = [0]*len(keywords)
 #Application Layer, Transport Layer, Network or Internet Layer, Data Link Layer and Physical Layer.
@@ -123,8 +134,6 @@ def processAns(question,student_ans,qwords,keywords,g_fac,s_fac):
     #find strength vector
     strength = computeStrength(keywords,qwords)
 
-    # strength vec  word to vec
-    #strength = [0.045215975, 0.13770995, 0.2002548, 0.13610095, 0.41461614]
 
     sum = 0
     i = 0
@@ -150,6 +159,8 @@ def processAns(question,student_ans,qwords,keywords,g_fac,s_fac):
             contextScore = (contextScore + relavancy_score) / 2
     print("---------------------------------")
     print(contextScore)
+
+    return contextScore
 
 #working questions
 
