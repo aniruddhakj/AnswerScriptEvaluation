@@ -162,7 +162,6 @@ def processAns(question,student_ans,keywords,g_fac,s_fac):
 
     return contextScore
 
-#working questions
 
 #processAns("What is a Router?","Router is a device that allows the user to connect to a computer network . It has two key functions namely, forwarding and routing","router")
 
@@ -172,11 +171,8 @@ def processAns(question,student_ans,keywords,g_fac,s_fac):
 
 #processAns("What do you mean by HTTP? What is the port number for the same?","HTTP stands for Hyper Text Transfer Protocol and the port for this is 80.","http")
 
-# issues
-
 #processAns("What are the different Layers of TCP/IP Model?"," Application Layer, Transport Layer, Network or Internet Layer, Data Link Layer and Physical Layer.","tcp")
 # layer, comes as the keyword instead of layer this was an issue with many q's 
-
 
 
 #print(checkRelavancy("router is a device used to connect to the internet",['router','device','network']))
