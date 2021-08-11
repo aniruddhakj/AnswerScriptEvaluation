@@ -8,7 +8,7 @@ A project to automate an answer script evaluator.
 
 ## Getting Started
 1. Download and install Python3 from [this link](https://www.python.org/downloads/)
-2. Install [venv](https://pypi.org/project/virtualenv/) to create a virtual environment for the project.
+2. Install [virtualenv](https://pypi.org/project/virtualenv/) to create a virtual environment for the project.
     - You can do this using a terminal and type :
         ```bash
         py -m pip install --user virtualenv
@@ -19,7 +19,7 @@ A project to automate an answer script evaluator.
         ```  
 3. Now create and activate the virtual environment
     ```bash
-    venv AnswerScriptEvalution
+    virtualenv AnswerScriptEvalution
     ```
     - For Windows
         ```bash
