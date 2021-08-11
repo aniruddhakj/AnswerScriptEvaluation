@@ -1,8 +1,12 @@
 # AnswerScriptEvaluation
 
-A repo containing code for an automated answer script evaluator
+A project to automate an answer script evaluator.
 
-### setting up dev environment
+## INDEX
+[Setting Up Dev Environment](https://github.com/aniruddhakj/AnswerScriptEvaluation/edit/main/README.md#setting-up-dev-environment)
+
+
+## Setting Up Dev Environment
 
 - clone the repo
 
