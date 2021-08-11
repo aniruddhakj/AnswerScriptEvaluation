@@ -9,9 +9,8 @@ import gensim.downloader as api
 from nltk.corpus import stopwords
 from grammar import checkGrammar
 
-
+'''Returns the model answer from the question bank'''
 def QuestionMatch(examQuestion):
-    '''Returns the model answer from the question bank'''
     with open ("QandAConverted.json") as jsonFile:
         filedata = json.load(jsonFile)
 
