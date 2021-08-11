@@ -19,7 +19,7 @@ A project to automate an answer script evaluator.
         ```  
 3. Now create and activate the virtual environment
     ```bash
-    venv Sudoku
+    venv AnswerScriptEvalution
     ```
     - For Windows
         ```bash
