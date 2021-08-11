@@ -3,8 +3,8 @@
 A project to automate an answer script evaluator.
 
 ## INDEX
-[Getting Started](https://github.com/aniruddhakj/AnswerScriptEvaluation/blob/main/README.md#getting-started)
-[Setting Up Dev Environment](https://github.com/aniruddhakj/AnswerScriptEvaluation/blob/main/README.md#setting-up-dev-environment)
+- [Getting Started](https://github.com/aniruddhakj/AnswerScriptEvaluation/blob/main/README.md#getting-started)
+- [Setting Up Dev Environment](https://github.com/aniruddhakj/AnswerScriptEvaluation/blob/main/README.md#setting-up-dev-environment)
 
 ## Getting Started
 1. Download and install Python3 from [this link](https://www.python.org/downloads/)
