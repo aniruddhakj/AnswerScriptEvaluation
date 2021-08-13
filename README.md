@@ -30,6 +30,7 @@ A project to automate an answer script evaluator.
       ```zsh
       source AnswerScriptEvaluation/bin/activate
       ```
+4. Use your google cloud credentials to generate a token to use the google vision api.
 
 ## Setting Up Dev Environment
 
