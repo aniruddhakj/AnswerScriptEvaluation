@@ -1,4 +1,5 @@
 # AnswerScriptEvaluation
+![License](https://img.shields.io/github/license/aniruddhakj/AnswerScriptEvaluation?color=%230000FF&style=plastic)
 ![Github Stars](https://img.shields.io/github/stars/aniruddhakj/AnswerScriptEvaluation?style=social)
 
 A project to automate an answer script evaluator.
