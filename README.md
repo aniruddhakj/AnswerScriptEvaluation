@@ -1,4 +1,5 @@
 # AnswerScriptEvaluation
+https://img.shields.io/github/stars/aniruddhakj/AnswerScriptEvaluation?style=social
 
 A project to automate an answer script evaluator.
 
