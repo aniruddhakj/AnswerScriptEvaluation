@@ -1,4 +1,4 @@
-# Generating keyed vectors from textbooks on computer networks.
+''' Generating keyed vectors from textbooks on computer networks.'''
 
 from gensim.models import Word2Vec, KeyedVectors
 import numpy as np
@@ -10,4 +10,4 @@ model = KeyedVectors.load('models.kv')
 
 m = KeyedVectors.load('models_large.kv')
 
-# dataset 2.6 lakh lines. 16 lakh words
+# dataset has 260K lines. 1.6 million words
