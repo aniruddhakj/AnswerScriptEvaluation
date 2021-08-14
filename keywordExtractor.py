@@ -23,9 +23,9 @@ def QuestionMatch(examQuestion):
 
 
 def getQword(question):
+    '''Extracts question keyword after matching the question from the question dataset'''
     with open("QandAConverted.json") as jsonFile:
         filedata = json.load(jsonFile)
-
     for ele in filedata['data']:
         if ele['Question'] == question:
             qword = ele['qword']
@@ -73,8 +73,8 @@ def wordimportance(modelAnswer):
     return(get_top_n(tF_idF, 5))
 
 
-def checkRelavancy(student_ans, keywords):
-    '''returns relavancy score by comparing student answer and model'''
+def checkRelevancy(student_ans, keywords):
+    '''returns relevance score by comparing student answer and model answer'''
     score = 0
     t = 0
     word_vectors = api.load("word2vec-google-news-300")
@@ -92,7 +92,7 @@ def checkRelavancy(student_ans, keywords):
 
 
 def processAns(question, student_ans, keywords, g_fac, s_fac):
-    '''processes answer and returns compute context score'''
+    '''processes answer and returns computed context score'''
     # test for a given question passed
     qwords = getQword(question)
     res = checkGrammar(student_ans)
@@ -114,7 +114,7 @@ def processAns(question, student_ans, keywords, g_fac, s_fac):
         keywords[i] = keywords[i].lower()
     print(keywords)
 
-    presence = [0]*len(keywords)
+    presence = [0]*len(keywords) 
     i = 0
     j = 0
     for keyword in keywords:
@@ -123,10 +123,10 @@ def processAns(question, student_ans, keywords, g_fac, s_fac):
             j += 1
         i += 1
 
-    p_weight = j/i
-    print("p weight is ", p_weight)
-
-    s_weight = 0
+    p_weight = j/i # weight of the keyword presence
+    print("Presence weight = ", p_weight)
+    s_weight = 0 #weight of keyword strength
+    
     # find strength vector
     strength = computeStrength(keywords, qwords)
 
@@ -138,20 +138,20 @@ def processAns(question, student_ans, keywords, g_fac, s_fac):
         s_weight += s*presence[i]
         i += 1
 
-    s_weight /= sum
+    s_weight /= sum 
 
     print("strength weight = ", s_weight)
 
-    p_fac = 1 - s_fac
-
-    contextScore = p_fac*p_weight + s_fac*s_weight
-
-    contextScore -= contextScore*penalty*g_fac
+    p_fac = 1 - s_fac 
+    '''Presence and Strength factors add up to 1. 
+    Which should be given more importance is to be decided by the human evaluator beforehand'''
+    contextScore = (p_fac * p_weight) + (s_fac * s_weight)
+    contextScore -= contextScore * penalty * g_fac
 
     if (contextScore < 0.5):
-        relavancy_score = checkRelavancy(student_ans, keywords)
-        if (relavancy_score > 0.5):
-            contextScore = (contextScore + relavancy_score) / 2
+        relevancy_score = checkRelevancy(student_ans, keywords)
+        if (relevancy_score > 0.5):
+            contextScore = (contextScore + relevancy_score) / 2
     print(contextScore)
 
     return contextScore
